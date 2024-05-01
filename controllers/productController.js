@@ -1,61 +1,25 @@
-const Product = require('../models/product');
+// controllers/productController.js
+const Product = require('../models/Product');
 
-const productController = {
-  createProduct: async (req, res) => {
+exports.createProduct = async (req, res) => {
     try {
-      const product = await Product.create(req.body);
-      return res.status(201).json(product);
+        const newProduct = await Product.create(req.body);
+        res.status(201).send(newProduct);
     } catch (error) {
-      return res.status(400).json(error);
+        res.status(400).send(error);
     }
-  },
-
-  getAllProducts: async (req, res) => {
-    try {
-      const products = await Product.findAll();
-      return res.status(200).json(products);
-    } catch (error) {
-      return res.status(500).json(error);
-    }
-  },
-
-  getProductById: async (req, res) => {
-    try {
-      const product = await Product.findByPk(req.params.identificador);
-      if (product) {
-        return res.status(200).json(product);
-      }
-      return res.status(404).json({ message: 'Product not found' });
-    } catch (error) {
-      return res.status(500).json(error);
-    }
-  },
-
-  updateProduct: async (req, res) => {
-    try {
-      const product = await Product.findByPk(req.params.identificador);
-      if (product) {
-        const updatedProduct = await product.update(req.body);
-        return res.status(200).json(updatedProduct);
-      }
-      return res.status(404).json({ message: 'Product not found' });
-    } catch (error) {
-      return res.status(500).json(error);
-    }
-  },
-
-  deleteProduct: async (req, res) => {
-    try {
-      const product = await Product.findByPk(req.params.identificador);
-      if (product) {
-        await product.destroy();
-        return res.status(200).json({ message: 'Product deleted' });
-      }
-      return res.status(404).json({ message: 'Product not found' });
-    } catch (error) {
-      return res.status(500).json(error);
-    }
-  }
 };
 
-module.exports = productController;
+exports.getProduct = async (req, res) => {
+    try {
+        const product = await Product.findByPk(req.params.id);
+        if (!product) {
+            return res.status(404).send();
+        }
+        res.send(product);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+};
+
+// Agrega más métodos según sea necesario

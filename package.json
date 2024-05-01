@@ -11,6 +11,8 @@
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
+    "mongodb": "^6.5.0",
+    "mongoose": "^8.3.3",
     "morgan": "~1.9.1",
     "pg": "^8.11.5",
     "pg-hstore": "^2.3.4",
